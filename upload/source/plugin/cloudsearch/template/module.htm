@@ -1,0 +1,93 @@
+{eval
+function tpl_cloudsearch_index_top($recwords, $searchparams, $srchotquery) {
+if($recwords) {
+$recwords_tmp = $recwords;
+$recwords = array();
+foreach ($recwords_tmp as $k => $v) {
+$recwords[$k+1] = $v;
+}{eval }}{eval }}
+<!--{block return}-->
+	<!--{if is_array($recwords) && count($recwords) > 0}-->
+	<div class="bm bmw fl bmb">
+		<div class="bm_h cl">
+			<span class="y"></span>
+			<h2>{lang cloudsearch:hottopic}</h2>
+		</div>
+        <style>
+        .filter { padding: 10px; border-bottom: none; font-size: 12px; color: #999; }
+		.filter ul {}
+		.filter li { float: left; margin-right: 16px; height: 22px; line-height: 22px; white-space:nowrap; width:12.5%; }
+		.filter li a { margin-right: 2px; text-decoration: none; color: #369; }
+		.filter li.clewcolor a { background:url("source/plugin/cloudsearch/template/keyword_hot.gif") no-repeat 100% 2px; margin-right: 2px; text-decoration: none; color: #F00; padding-right:18px; }
+		.filter li a:hover { text-decoration: underline; }
+		.filter li a:visited { text-decoration: none; color: #666; }
+        .filter li.clewcolor a:visited { text-decoration: none; color: #F00; }
+		.filter .number { color: #666; }
+		.filter li.clewcolor .number { color:#F00; }
+        </style>
+		<div class="filter">
+			<ul class="cl">
+			<!--{loop $recwords $key $recword}-->
+			<!--{if $encodeWord=rawurlencode(trim($recword[0]))}-->
+				<!--{if !empty($searchparams[0])}-->
+					<!--{if empty($recword[3])}-->
+						<li><a href="$searchparams[0]?q=$encodeWord&source=word.hotopicf.{$key}{$srchotquery}&num=$recword[2]" target="_blank">$recword[0]<span class="number">($recword[2])</span></a></li>
+					<!--{else}-->
+						<li class="clewcolor"><a href="$searchparams[0]?q=$encodeWord&source=word.hotopicf.{$key}{$srchotquery}&num=$recword[2]" target="_blank">$recword[0]<span class="number">($recword[2])</span></a></li>
+					<!--{/if}-->
+				<!--{else}-->
+					<!--{if empty($recword[3])}-->
+						<li><a href="search.php?mod=forum&srchtxt=$encodeWord&formhash={FORMHASH}&searchsubmit=true&source=word.hotopicf.<!--{$key+1}-->&num=$recword[2]" target="_blank">$recword[0]<span class="number">($recword[2])</span></a></li>
+					<!--{else}-->
+						<li class="clewcolor"><a href="search.php?mod=forum&srchtxt=$encodeWord&formhash={FORMHASH}&searchsubmit=true&source=word.hotopicf.<!--{$key+1}-->&num=$recword[2]" target="_blank">$recword[0]<span class="number">($recword[2])</span></a></li>
+					<!--{/if}-->
+				<!--{/if}-->
+			<!--{/if}-->
+			<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+	<!--{/if}-->
+<!--{/block}-->
+<!--{eval return $return;}-->
+{eval
+}
+
+function tpl_cloudsearch_viewthread_postbottom_output() {
+}
+<!--{block return}-->
+	<div id="relate_subject"></div>
+<!--{/block}-->
+<!--{eval return $return;}-->
+{eval
+}
+
+function tpl_cloudsearch_global_footer_related($searchDomain, $srchotquery) {
+global $_G;
+$rel_title = urlencode($_G['forum_thread']['subject']);
+$get_reltid = intval($_GET[reltid]);
+$get_pre_pos = dhtmlspecialchars(trim($_GET[pre_pos]));
+}
+<!--{block return}-->
+
+	<!--{if empty($_G['inajax'])}-->
+	<script type="text/javascript">
+	var rel_tid = "$_G['tid']";
+	var rel_title = "$rel_title";
+	var rel_reltid = "$get_reltid";
+	var rel_prepos = "$get_pre_pos";
+	var my_siteid = "$_G['setting']['my_siteid']";
+	var rel_uid = "$_G['uid']";
+	var charset = "{CHARSET}";
+	var rel_recommend = "{lang cloudsearch:rel_recommend}";
+	var rel_thread = "{lang cloudsearch:rel_thread}";
+	var searchDomain = "$searchDomain";
+	var srchotquery = "$srchotquery";
+	</script>
+	<script type="text/javascript" src="http://cache.soso.com/30d/js/discuz/relate_subject.js" charset="GBK"></script>
+	<!--{/if}-->
+<!--{/block}-->
+<!--{eval return $return;}-->
+{eval
+}
+}
