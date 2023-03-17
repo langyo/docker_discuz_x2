@@ -34,6 +34,8 @@ services:
     image: langyo/discuz_x2:latest
     ports:
       - 8080:80
+    volumes:
+      - discuz_x2_config:/var/www/html/config
     links:
       - db
     depends_on:
