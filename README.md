@@ -17,6 +17,8 @@ version: '3'
 
 volumes:
   db:
+  discuz_x2_config:
+  discuz_x2_data_cache:
 
 services:
   db:
@@ -36,6 +38,7 @@ services:
       - 8080:80
     volumes:
       - discuz_x2_config:/var/www/html/config
+      - discuz_x2_data_cache:/var/www/html/data/cache
     links:
       - db
     depends_on:
